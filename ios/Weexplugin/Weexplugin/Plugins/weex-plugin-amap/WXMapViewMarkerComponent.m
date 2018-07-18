@@ -20,6 +20,7 @@
 @synthesize offset = _offset;
 @synthesize hideCallout = _hideCallout;
 @synthesize zIndex = _zIndex;
+@synthesize centerLocked = _centerLocked;
 
 - (instancetype)initWithRef:(NSString *)ref
                        type:(NSString*)type
@@ -48,6 +49,7 @@
         }
         _title = [attributes wxmap_safeObjectForKey:@"title"];
         _icon = [attributes wxmap_safeObjectForKey:@"icon"];
+		_centerLocked = [[attributes wxmap_safeObjectForKey:@"centerLocked"] boolValue];
     }
     return self;
 }

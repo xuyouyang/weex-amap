@@ -22,4 +22,9 @@
 
 @property (nonatomic, assign) NSInteger zIndex;
 
+/**
+ * 是否屏幕居中固定显示
+ **/
+@property (nonatomic, assign) BOOL centerLocked;
+
 @end

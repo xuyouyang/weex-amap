@@ -371,6 +371,12 @@ static const void *componentKey = &componentKey;
 - (MAAnnotationView *)_generateAnnotationView:(MAMapView *)mapView viewForAnnotation:(MAPointAnnotation *)annotation
 {
     WXMapViewMarkerComponent *markerComponent = (WXMapViewMarkerComponent *)annotation.component;
+
+	if (markerComponent.centerLocked) {
+		annotation.lockedToScreen = YES;
+		annotation.lockedScreenPoint = CGPointMake(self.calculatedFrame.size.width / 2.f, self.calculatedFrame.size.height / 2.f);
+	}
+	
     if (annotation.iconImage){
         static NSString *pointReuseIndetifier = @"customReuseIndetifier";
         MAAnnotationView *annotationView = (MAAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
@@ -487,7 +493,15 @@ static const void *componentKey = &componentKey;
 - (void)mapView:(MAMapView *)mapView mapDidMoveByUser:(BOOL)wasUserAction
 {
     if (_isDragend) {
-        [self fireEvent:@"dragend" params:[NSDictionary dictionary]];
+		NSDictionary *spanDic = @{
+								  @"latitudeDelta" : @(mapView.region.span.latitudeDelta),
+								  @"longitudeDelta" : @(mapView.region.span.longitudeDelta)
+								  };
+		NSDictionary *centerDic = @{
+									@"latitude" : @(mapView.region.center.latitude),
+									@"longitude" : @(mapView.region.center.longitude),
+									};
+		[self fireEvent:@"dragend" params:@{@"span" : spanDic, @"center" : centerDic}];
     }
 }
 

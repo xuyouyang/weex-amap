@@ -91,9 +91,26 @@
   "scalePerPixel" : "Weex中一像素对应实际距离的长度（单位米）",
   "visibleRegion" : "可视区域的范围"
 }
-```  
+```
 **dragend**    
 用户拖动地图时触发该事件
+
+事件格式
+
+```json
+{
+  "span" : 
+    {
+        "latitudeDelta" : "地图纬度跨度",
+        "longitudeDelta" : "地图经度跨度"
+    },
+  "center" : 
+    {
+        "latitude" : "地图中心点纬度",
+        "longitude" : "地图中心点经度"
+    }
+}
+```
 
 
 
@@ -106,6 +123,7 @@
 | title | string   |   'this is a marker' | 坐标点的名称 |
 | hideCallout | boolean   |   true | 设置marker是否可点击 |
 | open | boolean   |   true | 是否显示InfoWindow |
+| centerLocked | boolean |  | 坐标点是否位于地图正中间且固定不动 |
 
 #### weex-amap-marker 事件
 **click**    
